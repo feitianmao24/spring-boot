@@ -1,0 +1,34 @@
+name: Unit Tests and Analysis
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - ".github/**"
+      - "**.md"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Run Unit Tests and Analyse
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: bcgov-nr/action-test-and-analyse-java@v.0.1.0
+        with:
+          commands: |
+            ./mvnw test
+          dir: frontend
+          java-cache: maven
+          java-distribution: temurin
+          java-version: "17"
+          sonar_args: |
+            -Dsonar.exclusions=**/coverage/**
+            -Dsonar.organization=bcgov-nr
+            -Dsonar.projectKey=bcgov-nr_action-test-and-analyse-java
+          sonar_project_token: ${{ secrets.SONAR_TOKEN }}
