@@ -1,6 +1,6 @@
 /*
  * Copyright 2012-2022 the original author or authors.
- *
+ * 顶部插入内容
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -57,6 +57,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	private Map<String, HealthEndpointGroup> createProbeGroups(boolean addAdditionalPaths) {
+	    变更在单个方法内
 		Map<String, HealthEndpointGroup> probeGroups = new LinkedHashMap<>();
 		probeGroups.put(LIVENESS, getOrCreateProbeGroup(addAdditionalPaths, LIVENESS, "/livez", "livenessState"));
 		probeGroups.put(READINESS, getOrCreateProbeGroup(addAdditionalPaths, READINESS, "/readyz", "readinessState"));
@@ -91,7 +92,9 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	@Override
 	public Set<String> getNames() {
+	    第一个方法变更
 		return this.names;
+		
 	}
 
 	@Override
@@ -105,6 +108,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	private boolean isProbeGroup(String name) {
 		return name.equals(LIVENESS) || name.equals(READINESS);
+		 第二个方法变更
 	}
 
 }
